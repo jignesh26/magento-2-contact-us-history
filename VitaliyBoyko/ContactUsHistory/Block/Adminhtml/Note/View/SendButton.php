@@ -22,7 +22,7 @@ class SendButton extends GenericButton implements ButtonProviderInterface
                 'mage-init' => ['button' => ['event' => 'save']],
                 'form-role' => 'save',
             ],
-            'sort_order' => 90,
+            'sort_order' => 100,
         ];
     }
 }

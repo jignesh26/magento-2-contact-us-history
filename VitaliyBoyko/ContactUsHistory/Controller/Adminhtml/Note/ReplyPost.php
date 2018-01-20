@@ -48,7 +48,7 @@ class ReplyPost extends Action
 
         if ($noteId === null) {
             $this->messageManager->addErrorMessage(__('Wrong request.'));
-            return $resultRedirect->setPath('*/*');
+            return $resultRedirect->setPath('contactus/index/index');
         }
 
         try {

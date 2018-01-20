@@ -26,6 +26,7 @@
             </button>
             <button name="save" class="VitaliyBoyko\ContactUsHistory\Block\Adminhtml\Note\View\SaveButton"/>
             <button name="delete" class="VitaliyBoyko\ContactUsHistory\Block\Adminhtml\Note\View\DeleteButton"/>
+            <button name="reply" class="VitaliyBoyko\ContactUsHistory\Block\Adminhtml\Note\View\ReplyButton"/>
         </buttons>
     </settings>
     <dataSource name="contactus_note_form_data_source" component="Magento_Ui/js/form/provider">
@@ -97,60 +98,5 @@
                 <label translate="true">Note</label>
             </settings>
         </field>
-        <container name="reply_button_container" component="Magento_Ui/js/form/components/group" sortOrder="150">
-            <argument name="data" xsi:type="array">
-                <item name="config" xsi:type="array">
-                    <item name="formElement" xsi:type="string">container</item>
-                    <item name="breakLine" xsi:type="boolean">false</item>
-                    <item name="dataScope" xsi:type="string" />
-                    <item name="label" xsi:type="string" />
-                </item>
-            </argument>
-            <button name="reply_button_button" template="ui/form/components/button/container">
-                <settings>
-                    <title translate="true">Reply</title>
-                    <dataScope />
-                </settings>
-                <argument name="data" xsi:type="array">
-                    <item name="config" xsi:type="array">
-                        <item name="formElement" xsi:type="string">container</item>
-                        <item name="actions" xsi:type="array">
-                            <item name="0" xsi:type="array">
-                                <item name="targetName" xsi:type="string">contactus_note_form.contactus_note_form.reply_modal</item>
-                                <item name="actionName" xsi:type="string">toggleModal</item>
-                            </item>
-                        </item>
-                        <item name="additionalForGroup" xsi:type="boolean">true</item>
-                        <item name="additionalClasses" xsi:type="string">admin__field-medium</item>
-                    </item>
-                </argument>
-            </button>
-        </container>
     </fieldset>
-    <modal name="reply_modal" provider="false">
-        <insertForm name="reply_form">
-            <settings>
-                <autoRender>true</autoRender>
-                <renderUrl path="mui/index/render_handle">
-                    <param name="handle">contactus_note_reply</param>
-                    <param name="buttons">1</param>
-                </renderUrl>
-                <formSubmitType>false</formSubmitType>
-                <loading>false</loading>
-                <ns>contactus_reply_form</ns>
-                <toolbarContainer>${ $.parentName }</toolbarContainer>
-                <externalProvider>contactus_note_form.contactus_note_form_data_source</externalProvider>
-                <dataLinks>
-                    <imports>false</imports>
-                    <exports>true</exports>
-                </dataLinks>
-                <imports>
-                    <link name="note_id">${ $.provider }:data.note_id</link>
-                </imports>
-                <exports>
-                    <link name="note_id">${ $.provider }:data.note_id</link>
-                </exports>
-            </settings>
-        </insertForm>
-    </modal>
 </form>

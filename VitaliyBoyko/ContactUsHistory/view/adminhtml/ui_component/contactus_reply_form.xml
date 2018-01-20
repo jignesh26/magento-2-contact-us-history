@@ -19,6 +19,11 @@
             <dep>contactus_reply_form.contactus_reply_form_data_source</dep>
         </deps>
         <buttons>
+            <button name="back">
+                <url path="*/index/index"/>
+                <class>back</class>
+                <label translate="true">Back</label>
+            </button>
             <button name="save" class="VitaliyBoyko\ContactUsHistory\Block\Adminhtml\Note\View\SendButton"/>
         </buttons>
     </settings>
@@ -45,6 +50,9 @@
             <settings>
                 <dataType>text</dataType>
                 <label translate="true">Message</label>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">true</rule>
+                </validation>
             </settings>
         </field>
     </fieldset>

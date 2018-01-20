@@ -51,12 +51,6 @@ class ViewAction extends Column
                                 $item['id_field_name'] => $item[$item['id_field_name']],
                             ]),
                             'label' => __('View')
-                        ],
-                        'reply' => [
-                            'href' => $this->urlBuilder->getUrl('contactus/note/reply', [
-                                $item['id_field_name'] => $item[$item['id_field_name']],
-                            ]),
-                            'label' => __('Reply')
                         ]
                     ];
                     unset($item);
