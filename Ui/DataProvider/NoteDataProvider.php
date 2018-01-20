@@ -13,7 +13,7 @@ use Magento\Framework\App\RequestInterface;
 use Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider;
 use VitaliyBoyko\ContactUsHistory\Api\Data\NoteInterface;
 use VitaliyBoyko\ContactUsHistory\Api\NotesRepositoryInterface;
-use Magento\Ui\DataProvider\SearchResultFactory;
+use VitaliyBoyko\ContactUsHistory\Ui\DataProvider\SearchResultFactory;
 
 class NoteDataProvider extends DataProvider
 {
