@@ -17,4 +17,4 @@ To install module type:
   
   `php bin/magento setup:upgrade`
 
-After install you can found in adminpanel - Marketing / Communications / Contact form notes
+After install you can found grid in adminpanel - Marketing / Communications / Contact form notes
