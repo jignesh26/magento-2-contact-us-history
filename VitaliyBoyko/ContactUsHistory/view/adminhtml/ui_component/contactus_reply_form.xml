@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Vitaliy Boyko <vitaliyboyko@i.ua>
+ */
+-->
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">contactus_reply_form.contactus_reply_form_data_source</item>
+        </item>
+        <item name="label" xsi:type="string" translate="true">Note Information</item>
+        <item name="template" xsi:type="string">templates/form/collapsible</item>
+    </argument>
+    <settings>
+        <dataScope>data</dataScope>
+        <namespace>contactus_reply_form</namespace>
+        <deps>
+            <dep>contactus_reply_form.contactus_reply_form_data_source</dep>
+        </deps>
+        <buttons>
+            <button name="save" class="VitaliyBoyko\ContactUsHistory\Block\Adminhtml\Note\View\SendButton"/>
+        </buttons>
+    </settings>
+    <dataSource name="contactus_reply_form_data_source" component="Magento_Ui/js/form/provider">
+        <settings>
+            <submitUrl path="contactus/note/replyPost"/>
+        </settings>
+        <dataProvider class="VitaliyBoyko\ContactUsHistory\Ui\DataProvider\NoteDataProvider" name="contactus_reply_form_data_source">
+            <settings>
+                <requestFieldName>note_id</requestFieldName>
+                <primaryFieldName>note_id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+    <fieldset name="general" sortOrder="10">
+        <settings>
+            <label/>
+            <collapsible>false</collapsible>
+            <opened>true</opened>
+            <dataScope>general</dataScope>
+        </settings>
+        <field name="note_id" formElement="hidden" sortOrder="20"/>
+        <field name="response" formElement="textarea" sortOrder="50">
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Message</label>
+            </settings>
+        </field>
+    </fieldset>
+</form>

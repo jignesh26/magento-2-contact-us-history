@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Vitaliy Boyko <vitaliyboyko@i.ua>
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+    <acl>
+        <resources>
+            <resource id="Magento_Backend::admin">
+                <resource id="VitaliyBoyko_ContactUsHistory::note" title="Inventory Notes" translate="title" sortOrder="10" />
+            </resource>
+        </resources>
+    </acl>
+</config>

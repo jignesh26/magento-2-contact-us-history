@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Vitaliy Boyko <vitaliyboyko@i.ua>
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <preference for="Magento\Contact\Controller\Index\Post" type="VitaliyBoyko\ContactUsHistory\Controller\Index\Post" />
+
+    <preference for="VitaliyBoyko\ContactUsHistory\Api\Data\NoteInterface" type="VitaliyBoyko\ContactUsHistory\Model\Note" />
+    <preference for="VitaliyBoyko\ContactUsHistory\Api\NotesRepositoryInterface" type="VitaliyBoyko\ContactUsHistory\Model\NotesRepository" />
+    <preference for="VitaliyBoyko\ContactUsHistory\Model\Note\Command\GetListInterface" type="VitaliyBoyko\ContactUsHistory\Model\Note\Command\GetList" />
+    <preference for="VitaliyBoyko\ContactUsHistory\Api\Data\NoteSearchResultsInterface" type="VitaliyBoyko\ContactUsHistory\Model\NoteSearchResults" />
+    <preference for="VitaliyBoyko\ContactUsHistory\Api\NotesDeleteInterface" type="VitaliyBoyko\ContactUsHistory\Model\Note\Command\NotesDelete" />
+    <preference for="VitaliyBoyko\ContactUsHistory\Api\NotesSaveInterface" type="VitaliyBoyko\ContactUsHistory\Model\Note\Command\NotesSave" />
+    <preference for="VitaliyBoyko\ContactUsHistory\Api\NoteProcessorInterface" type="VitaliyBoyko\ContactUsHistory\Model\Note\Command\NoteProcessor" />
+    <preference for="VitaliyBoyko\ContactUsHistory\Api\ReplyProcessorInterface" type="VitaliyBoyko\ContactUsHistory\Model\Reply\Command\ReplyProcessor" />
+    <preference for="VitaliyBoyko\ContactUsHistory\Model\MailInterface" type="VitaliyBoyko\ContactUsHistory\Model\Mail" />
+    <type name="VitaliyBoyko\ContactUsHistory\Api\NoteProcessorInterface">
+        <plugin name="admin_notify_about_new_note"
+                type="VitaliyBoyko\ContactUsHistory\Plugin\Model\Note\Command\NoteProcessorAdminNotificationPlugin"/>
+    </type>
+</config>

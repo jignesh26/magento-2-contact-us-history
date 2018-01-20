@@ -1,0 +1,161 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Vitaliy Boyko <vitaliyboyko@i.ua>
+ */
+-->
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">contactus_note_listing.contactus_note_listing_data_source</item>
+        </item>
+    </argument>
+    <settings>
+        <spinner>contactus_note_listing_columns</spinner>
+        <deps>
+            <dep>contactus_note_listing.contactus_note_listing_data_source</dep>
+        </deps>
+    </settings>
+    <dataSource name="contactus_note_listing_data_source" component="Magento_Ui/js/grid/provider">
+        <settings>
+            <storageConfig>
+                <param name="indexField" xsi:type="string">note_id</param>
+            </storageConfig>
+            <updateUrl path="mui/index/render"/>
+        </settings>
+        <aclResource>VitaliyBoyko_ContactUsHistory::note</aclResource>
+        <dataProvider class="VitaliyBoyko\ContactUsHistory\Ui\DataProvider\NoteDataProvider" name="contactus_note_listing_data_source">
+            <settings>
+                <requestFieldName>note_id</requestFieldName>
+                <primaryFieldName>note_id</primaryFieldName>
+            </settings>
+        </dataProvider>
+    </dataSource>
+    <listingToolbar name="listing_top">
+        <settings>
+            <sticky>true</sticky>
+        </settings>
+        <bookmark name="bookmarks"/>
+        <columnsControls name="columns_controls"/>
+        <filterSearch name="email">
+            <settings>
+                <placeholder translate="true">Search by email</placeholder>
+            </settings>
+        </filterSearch>
+        <filters name="listing_filters">
+            <settings>
+                <templates>
+                    <filters>
+                        <select>
+                            <param name="template" xsi:type="string">ui/grid/filters/elements/ui-select</param>
+                            <param name="component" xsi:type="string">Magento_Ui/js/form/element/ui-select</param>
+                        </select>
+                    </filters>
+                </templates>
+            </settings>
+        </filters>
+        <massaction name="listing_massaction">
+            <action name="delete">
+                <settings>
+                    <confirm>
+                        <message translate="true">Are you sure you want to delete selected items?</message>
+                        <title translate="true">Delete items</title>
+                    </confirm>
+                    <url path="contactus/note/massDelete"/>
+                    <type>delete</type>
+                    <label translate="true">Delete</label>
+                </settings>
+            </action>
+        </massaction>
+        <paging name="listing_paging"/>
+    </listingToolbar>
+    <columns name="contactus_note_listing_columns">
+        <settings>
+            <editorConfig>
+                <param name="clientConfig" xsi:type="array">
+                    <item name="saveUrl" xsi:type="url" path="contactus/index/inlineEdit"/>
+                    <item name="validateBeforeSave" xsi:type="boolean">false</item>
+                </param>
+                <param name="indexField" xsi:type="string">note_id</param>
+                <param name="enabled" xsi:type="boolean">true</param>
+                <param name="selectProvider" xsi:type="string">contactus_note_listing.contactus_note_listing.contactus_note_listing_columns.ids</param>
+            </editorConfig>
+            <childDefaults>
+                <param name="fieldAction" xsi:type="array">
+                    <item name="provider" xsi:type="string">contactus_note_listing.contactus_note_listing.contactus_note_listing_columns_editor</item>
+                    <item name="target" xsi:type="string">startEdit</item>
+                    <item name="params" xsi:type="array">
+                        <item name="0" xsi:type="string">${ $.$data.rowIndex }</item>
+                        <item name="1" xsi:type="boolean">true</item>
+                    </item>
+                </param>
+            </childDefaults>
+        </settings>
+        <selectionsColumn name="ids" sortOrder="10">
+            <settings>
+                <indexField>note_id</indexField>
+            </settings>
+        </selectionsColumn>
+        <column name="note_id" sortOrder="25">
+            <settings>
+                <filter>textRange</filter>
+                <label translate="true">Note id</label>
+                <visible>true</visible>
+                <sorting>desc</sorting>
+            </settings>
+        </column>
+        <column name="contact_name" sortOrder="40">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Name</label>
+                <visible>true</visible>
+            </settings>
+        </column>
+        <column name="status" component="Magento_Ui/js/grid/columns/select" sortOrder="50">
+            <settings>
+                <label translate="true">Is Responded</label>
+                <filter>select</filter>
+                <editor>
+                    <editorType>select</editorType>
+                </editor>
+                <dataType>select</dataType>
+                <options>
+                    <option name="0" xsi:type="array">
+                        <item name="value" xsi:type="number">1</item>
+                        <item name="label" xsi:type="string" translate="true">Responded</item>
+                    </option>
+                    <option name="1" xsi:type="array">
+                        <item name="value" xsi:type="number">0</item>
+                        <item name="label" xsi:type="string" translate="true">Not Responded</item>
+                    </option>
+                </options>
+            </settings>
+        </column>
+        <column name="message" sortOrder="50">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Note</label>
+                <visible>true</visible>
+            </settings>
+        </column>
+        <column name="email" sortOrder="60">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Email</label>
+                <visible>true</visible>
+            </settings>
+        </column>
+        <column name="phone" sortOrder="70">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Phone</label>
+                <visible>true</visible>
+            </settings>
+        </column>
+        <actionsColumn name="actions" class="VitaliyBoyko\ContactUsHistory\Ui\Component\Listing\Column\ViewAction" sortOrder="200">
+            <settings>
+                <indexField>note_id</indexField>
+            </settings>
+        </actionsColumn>
+    </columns>
+</listing>

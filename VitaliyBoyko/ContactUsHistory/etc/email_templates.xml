@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Vitaliy Boyko <vitaliyboyko@i.ua>
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
+    <template id="vitaliyboyko_contactushistory_email_template" label="Contact Form Response" file="response.html" type="html" module="VitaliyBoyko_ContactUsHistory" area="adminhtml"/>
+</config>
