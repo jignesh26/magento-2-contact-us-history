@@ -33,10 +33,10 @@ class InstallSchema implements InstallSchemaInterface
             Table::TYPE_INTEGER,
             null,
             [
-                Table::OPTION_IDENTITY => true,
-                Table::OPTION_UNSIGNED => true,
-                Table::OPTION_NULLABLE => false,
-                Table::OPTION_PRIMARY => true,
+                'identity' => true,
+                'unsigned' => true,
+                'nullable' => false,
+                'primary' => true,
             ],
             'Note ID'
         )->addColumn(
@@ -44,7 +44,7 @@ class InstallSchema implements InstallSchemaInterface
             Table::TYPE_TEXT,
             255,
             [
-                Table::OPTION_NULLABLE => false,
+                'nullable' => false,
             ],
             'Contact Name'
         )->addColumn(
@@ -52,7 +52,7 @@ class InstallSchema implements InstallSchemaInterface
             Table::TYPE_TEXT,
             255,
             [
-                Table::OPTION_NULLABLE => false,
+                'nullable' => false,
             ],
             'Email'
         )->addColumn(
@@ -60,7 +60,7 @@ class InstallSchema implements InstallSchemaInterface
             Table::TYPE_TEXT,
             255,
             [
-                Table::OPTION_NULLABLE => true,
+                'nullable' => true,
             ],
             'Phone number'
         )->addColumn(
@@ -68,7 +68,7 @@ class InstallSchema implements InstallSchemaInterface
             Table::TYPE_TEXT,
             null,
             [
-                Table::OPTION_NULLABLE => false,
+                'nullable' => false,
             ],
             'Message'
         )->addColumn(
@@ -76,7 +76,7 @@ class InstallSchema implements InstallSchemaInterface
             Table::TYPE_BOOLEAN,
             null,
             [
-                Table::OPTION_NULLABLE => false,
+                'nullable' => false,
             ],
             'Is replied'
         );
