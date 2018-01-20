@@ -9,7 +9,6 @@ namespace VitaliyBoyko\ContactUsHistory\Controller\Adminhtml\Note;
 use Magento\Backend\App\Action;
 use Magento\Backend\App\Action\Context;
 use Magento\Framework\Controller\ResultInterface;
-use Magento\Inventory\Ui\Component\MassAction\Filter;
 use VitaliyBoyko\ContactUsHistory\Api\NotesDeleteInterface;
 use VitaliyBoyko\ContactUsHistory\Api\NotesRepositoryInterface;
 
@@ -24,10 +23,6 @@ class MassDelete extends Action
     const ADMIN_RESOURCE = 'VitaliyBoyko_ContactUsHistory::note';
 
     /**
-     * @var Filter
-     */
-    private $massActionFilter;
-    /**
      * @var NotesRepositoryInterface
      */
     private $notesRepository;
@@ -40,16 +35,13 @@ class MassDelete extends Action
      * @param Context $context
      * @param NotesRepositoryInterface $notesRepository
      * @param NotesDeleteInterface $notesDelete
-     * @param Filter $massActionFilter
      */
     public function __construct(
         Context $context,
         NotesRepositoryInterface $notesRepository,
-        NotesDeleteInterface $notesDelete,
-        Filter $massActionFilter
+        NotesDeleteInterface $notesDelete
     ) {
         parent::__construct($context);
-        $this->massActionFilter = $massActionFilter;
         $this->notesRepository = $notesRepository;
         $this->notesDelete = $notesDelete;
     }
@@ -66,7 +58,7 @@ class MassDelete extends Action
         }
 
         $notes = [];
-        foreach ($this->massActionFilter->getIds() as $id) {
+        foreach ($this->getRequest()->getParam('selected') as $id) {
             $notes[] = $this->notesRepository->get((int)$id);
         }
 
