@@ -43,17 +43,16 @@ class ViewAction extends Column
     public function prepareDataSource(array $dataSource)
     {
         if (isset($dataSource['data']['items'])) {
-            foreach ($dataSource['data']['items'] as &$item) {
-                if (isset($item[$item['id_field_name']])) {
+            foreach ($dataSource['data']['items'] as & $item) {
+                if (isset($item['note_id'])) {
                     $item[$this->getData('name')] = [
                         'edit' => [
                             'href' => $this->urlBuilder->getUrl('contactus/note/view', [
-                                $item['id_field_name'] => $item[$item['id_field_name']],
+                                'note_id' => $item['note_id'],
                             ]),
                             'label' => __('View')
                         ]
                     ];
-                    unset($item);
                 }
             }
         }

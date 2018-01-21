@@ -46,8 +46,8 @@ class Save extends Action
         $resultRedirect = $this->resultRedirectFactory->create();
 
         $requestData = $this->getRequest()->getParams();
-        $noteId = isset($requestData['general'][NoteInterface::NOTE_ID])
-            ? (int)$requestData['general'][NoteInterface::NOTE_ID]
+        $noteId = isset($requestData[NoteInterface::NOTE_ID])
+            ? (int)$requestData[NoteInterface::NOTE_ID]
             : null;
 
         if ($noteId === null) {
@@ -56,7 +56,7 @@ class Save extends Action
         }
 
         try {
-            $noteStatus = (int)$requestData['general'][NoteInterface::STATUS];
+            $noteStatus = (int)$requestData[NoteInterface::STATUS];
             $this->changeNoteStatusService->execute($noteId, $noteStatus);
             $this->messageManager->addSuccessMessage(__('The Note has been saved.'));
             $resultRedirect->setPath('contactus/index/index');

@@ -33,7 +33,7 @@
         <settings>
             <submitUrl path="contactus/note/save"/>
         </settings>
-        <dataProvider class="VitaliyBoyko\ContactUsHistory\Ui\DataProvider\NoteDataProvider" name="contactus_note_form_data_source">
+        <dataProvider class="VitaliyBoyko\ContactUsHistory\Model\Note\DataProvider" name="contactus_note_form_data_source">
             <settings>
                 <requestFieldName>note_id</requestFieldName>
                 <primaryFieldName>note_id</primaryFieldName>
@@ -45,24 +45,51 @@
             <label translate="true">Note</label>
             <collapsible>false</collapsible>
             <opened>true</opened>
-            <dataScope>general</dataScope>
         </settings>
-        <field name="note_id" formElement="hidden" sortOrder="20"/>
-        <field name="contact_name" formElement="input" sortOrder="20">
+        <field name="note_id" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">general</item>
+                </item>
+            </argument>
             <settings>
-                <disabled>true</disabled>
                 <dataType>text</dataType>
-                <label translate="true">Name</label>
+                <visible>false</visible>
+                <dataScope>note_id</dataScope>
             </settings>
         </field>
-        <field name="email" formElement="input" sortOrder="30">
+        <field name="contact_name" formElement="input" sortOrder="20">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">general</item>
+                </item>
+            </argument>
             <settings>
-                <disabled>true</disabled>
                 <dataType>text</dataType>
-                <label translate="true">Name</label>
+                <disabled>true</disabled>
+                <label translate="true">Contact Name</label>
+                <dataScope>contact_name</dataScope>
+            </settings>
+        </field>
+        <field name="email" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">general</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>text</dataType>
+                <disabled>true</disabled>
+                <label translate="true">Email</label>
+                <dataScope>email</dataScope>
             </settings>
         </field>
         <field name="phone" formElement="input" sortOrder="35">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">general</item>
+                </item>
+            </argument>
             <settings>
                 <disabled>true</disabled>
                 <dataType>text</dataType>
@@ -70,6 +97,11 @@
             </settings>
         </field>
         <field name="status" formElement="select" sortOrder="40">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">general</item>
+                </item>
+            </argument>
             <settings>
                 <dataType>boolean</dataType>
                 <label translate="true">Is responded</label>
@@ -92,6 +124,11 @@
             </formElements>
         </field>
         <field name="message" formElement="textarea" sortOrder="50">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">general</item>
+                </item>
+            </argument>
             <settings>
                 <disabled>true</disabled>
                 <dataType>text</dataType>

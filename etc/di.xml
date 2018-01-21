@@ -21,4 +21,29 @@
         <plugin name="admin_notify_about_new_note"
                 type="VitaliyBoyko\ContactUsHistory\Plugin\Model\Note\Command\NoteProcessorAdminNotificationPlugin"/>
     </type>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="contactus_note_listing_data_source" xsi:type="string">VitaliyBoyko\ContactUsHistory\Model\ResourceModel\Note\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="VitaliyBoyko\ContactUsHistory\Model\ResourceModel\Note\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">contact_us_history</argument>
+            <argument name="eventPrefix" xsi:type="string">contact_us_note_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">note_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">VitaliyBoyko\ContactUsHistory\Model\ResourceModel\Note</argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\EntityManager\MetadataPool">
+        <arguments>
+            <argument name="metadata" xsi:type="array">
+                <item name="Magento\Cms\Api\Data\NoteInterface" xsi:type="array">
+                    <item name="entityTableName" xsi:type="string">contact_us_history</item>
+                    <item name="identifierField" xsi:type="string">note_id</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
 </config>

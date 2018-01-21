@@ -53,7 +53,7 @@ class View extends Action
                 ->addBreadcrumb(__('View Note'), __('View Note'));
             $result->getConfig()
                 ->getTitle()
-                ->prepend(__('View Note from %name', ['name' => $note->getContactName()]));
+                ->prepend(__('Note from %name', ['name' => $note->getContactName()]));
         } catch (NoSuchEntityException $e) {
             /** @var Redirect $result */
             $result = $this->resultRedirectFactory->create();

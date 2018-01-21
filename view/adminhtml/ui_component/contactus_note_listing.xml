@@ -71,15 +71,6 @@
     </listingToolbar>
     <columns name="contactus_note_listing_columns">
         <settings>
-            <editorConfig>
-                <param name="clientConfig" xsi:type="array">
-                    <item name="saveUrl" xsi:type="url" path="contactus/index/inlineEdit"/>
-                    <item name="validateBeforeSave" xsi:type="boolean">false</item>
-                </param>
-                <param name="indexField" xsi:type="string">note_id</param>
-                <param name="enabled" xsi:type="boolean">true</param>
-                <param name="selectProvider" xsi:type="string">contactus_note_listing.contactus_note_listing.contactus_note_listing_columns.ids</param>
-            </editorConfig>
             <childDefaults>
                 <param name="fieldAction" xsi:type="array">
                     <item name="provider" xsi:type="string">contactus_note_listing.contactus_note_listing.contactus_note_listing_columns_editor</item>
@@ -115,9 +106,6 @@
             <settings>
                 <label translate="true">Is Responded</label>
                 <filter>select</filter>
-                <editor>
-                    <editorType>select</editorType>
-                </editor>
                 <dataType>select</dataType>
                 <options>
                     <option name="0" xsi:type="array">

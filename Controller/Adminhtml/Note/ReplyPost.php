@@ -42,8 +42,8 @@ class ReplyPost extends Action
         $resultRedirect = $this->resultRedirectFactory->create();
 
         $requestData = $this->getRequest()->getParams();
-        $noteId = isset($requestData['general'][NoteInterface::NOTE_ID])
-            ? (int)$requestData['general'][NoteInterface::NOTE_ID]
+        $noteId = isset($requestData[NoteInterface::NOTE_ID])
+            ? (int)$requestData[NoteInterface::NOTE_ID]
             : null;
 
         if ($noteId === null) {
@@ -52,7 +52,7 @@ class ReplyPost extends Action
         }
 
         try {
-            $this->replyProcessor->execute($requestData['general']);
+            $this->replyProcessor->execute($requestData);
             $this->messageManager->addSuccessMessage(__('Message has been sent'));
             $resultRedirect->setPath('contactus/index/index');
         } catch (\Exception $e) {
