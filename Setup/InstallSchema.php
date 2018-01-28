@@ -79,6 +79,38 @@ class InstallSchema implements InstallSchemaInterface
                 Table::OPTION_NULLABLE => false,
             ],
             'Is replied'
+        )->addColumn(
+            NoteInterface::CREATED_DATE,
+            Table::TYPE_TIMESTAMP,
+            null,
+            [
+                Table::OPTION_NULLABLE => false,
+            ],
+            'Created date'
+        )->addColumn(
+            NoteInterface::REPLIED_DATE,
+            Table::TYPE_TIMESTAMP,
+            null,
+            [
+                Table::OPTION_NULLABLE => true,
+            ],
+            'Replied date'
+        )->addColumn(
+            NoteInterface::CUSTOMER_ID,
+            Table::TYPE_INTEGER,
+            null,
+            [
+                Table::OPTION_NULLABLE => true,
+            ],
+            'Customer id'
+        )->addColumn(
+            NoteInterface::IS_REPLIED_FROM_ADMIN,
+            Table::TYPE_BOOLEAN,
+            null,
+            [
+                Table::OPTION_NULLABLE => true,
+            ],
+            'Is replied from admin'
         );
 
         $setup->getConnection()->createTable($table);
