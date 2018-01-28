@@ -46,7 +46,11 @@ class SaveMultiple
             NoteInterface::CONTACT_NAME,
             NoteInterface::STATUS,
             NoteInterface::MESSAGE,
-            NoteInterface::EMAIL
+            NoteInterface::EMAIL,
+            NoteInterface::CREATED_DATE,
+            NoteInterface::REPLIED_DATE,
+            NoteInterface::CUSTOMER_ID,
+            NoteInterface::IS_REPLIED_FROM_ADMIN
         ]);
         $valuesSql = $this->buildValuesSqlPart($notes);
         $onDuplicateSql = $this->buildOnDuplicateSqlPart([
@@ -54,7 +58,11 @@ class SaveMultiple
             NoteInterface::CONTACT_NAME,
             NoteInterface::STATUS,
             NoteInterface::MESSAGE,
-            NoteInterface::EMAIL
+            NoteInterface::EMAIL,
+            NoteInterface::CREATED_DATE,
+            NoteInterface::REPLIED_DATE,
+            NoteInterface::CUSTOMER_ID,
+            NoteInterface::IS_REPLIED_FROM_ADMIN
         ]);
         $bind = $this->getSqlBindData($notes);
 
@@ -86,7 +94,7 @@ class SaveMultiple
      */
     private function buildValuesSqlPart(array $notes): string
     {
-        $sql = rtrim(str_repeat('(?, ?, ?, ?, ?, ?), ', count($notes)), ', ');
+        $sql = rtrim(str_repeat('(?, ?, ?, ?, ?, ?, ?, ?, ?, ?), ', count($notes)), ', ');
         return $sql;
     }
 
@@ -104,7 +112,11 @@ class SaveMultiple
                 $note->getContactName(),
                 $note->getStatus(),
                 $note->getMessage(),
-                $note->getEmail()
+                $note->getEmail(),
+                $note->getCreatedDate(),
+                $note->getRepliedDate(),
+                $note->getCustomerId(),
+                $note->getIsRepliedFromAdmin()
             ]);
         }
         return $bind;

@@ -6,6 +6,8 @@ declare(strict_types=1);
 
 namespace VitaliyBoyko\ContactUsHistory\Model\Note\Command;
 
+use Magento\Customer\Model\Session;
+use Magento\Framework\Stdlib\DateTime\DateTime;
 use VitaliyBoyko\ContactUsHistory\Api\Data\NoteInterface;
 use VitaliyBoyko\ContactUsHistory\Api\Data\NoteInterfaceFactory;
 use VitaliyBoyko\ContactUsHistory\Api\NoteProcessorInterface;
@@ -24,17 +26,31 @@ class NoteProcessor implements NoteProcessorInterface
      * @var NotesSaveInterface
      */
     private $notesSave;
+    /**
+     * @var DateTime
+     */
+    private $dateTime;
+    /**
+     * @var Session
+     */
+    private $customerSession;
 
     /**
      * @param NoteInterfaceFactory $noteInterfaceFactory
      * @param NotesSaveInterface $notesSave
+     * @param DateTime $dateTime
+     * @param Session $customerSession
      */
     public function __construct(
         NoteInterfaceFactory $noteInterfaceFactory,
-        NotesSaveInterface $notesSave
+        NotesSaveInterface $notesSave,
+        DateTime $dateTime,
+        Session $customerSession
     ) {
         $this->noteInterfaceFactory = $noteInterfaceFactory;
         $this->notesSave = $notesSave;
+        $this->dateTime = $dateTime;
+        $this->customerSession = $customerSession;
     }
 
     /**
@@ -49,7 +65,9 @@ class NoteProcessor implements NoteProcessorInterface
                     NoteInterface::CONTACT_NAME => $params['name'],
                     NoteInterface::PHONE => $params['telephone'],
                     NoteInterface::MESSAGE => $params['comment'],
-                    NoteInterface::STATUS => 0
+                    NoteInterface::STATUS => 0,
+                    NoteInterface::CREATED_DATE => $this->dateTime->gmtDate(),
+                    NoteInterface::CUSTOMER_ID => $this->customerSession->getCustomerId()
                 ]
             ]
         );
