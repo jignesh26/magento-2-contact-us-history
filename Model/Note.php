@@ -107,4 +107,69 @@ class Note extends AbstractExtensibleModel implements NoteInterface
     {
         return $this->setData(self::PHONE, $phone);
     }
+
+
+    /**
+     * @inheritdoc
+     */
+    public function getCreatedDate()
+    {
+        return $this->getData(self::CREATED_DATE);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function setCreatedDate($createdDate)
+    {
+            return $this->setData(self::CREATED_DATE, $createdDate);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getRepliedDate()
+    {
+            return $this->getData(self::REPLIED_DATE);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function setRepliedDate($repliedDate)
+    {
+            return $this->setData(self::REPLIED_DATE, $repliedDate);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getCustomerId()
+    {
+            return $this->getData(self::CUSTOMER_ID);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function setCustomerId($customerId)
+    {
+            return $this->setData(self::CUSTOMER_ID, $customerId);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getIsRepliedFromAdmin()
+    {
+            return $this->getData(self::IS_REPLIED_FROM_ADMIN);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function setIsRepliedFromAdmin($isRepliedFromAdmin)
+    {
+            return $this->setData(self::IS_REPLIED_FROM_ADMIN, $isRepliedFromAdmin);
+    }
 }

@@ -51,6 +51,6 @@ class ReplyProcessor implements ReplyProcessorInterface
         /** @var NoteInterface $note */
         $note = $this->notesRepository->get($noteId);
         $this->mail->send($note->getEmail(), $params);
-        $this->changeNoteStatusService->execute($noteId, 1);
+        $this->changeNoteStatusService->execute($noteId, 1, true);
     }
 }

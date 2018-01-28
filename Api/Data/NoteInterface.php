@@ -17,6 +17,10 @@ interface NoteInterface
     const STATUS = 'status';
     const MESSAGE = 'message';
     const PHONE = 'phone';
+    const CREATED_DATE = 'created_date';
+    const REPLIED_DATE = 'replied_date';
+    const CUSTOMER_ID = 'customer_id';
+    const IS_REPLIED_FROM_ADMIN = 'is_replied_from_admin';
     /**#@-*/
 
     /**
@@ -101,4 +105,64 @@ interface NoteInterface
      * @return void
      */
     public function setPhone($phone);
+
+    /**
+     * Get created date
+     *
+     * @return string
+     */
+    public function getCreatedDate();
+
+    /**
+     * Set created date
+     *
+     * @param string $createdDate
+     * @return void
+     */
+    public function setCreatedDate($createdDate);
+
+    /**
+     * Get replied date
+     *
+     * @return string|null
+     */
+    public function getRepliedDate();
+
+    /**
+     * Set replied date
+     *
+     * @param string|null $repliedDate
+     * @return void
+     */
+    public function setRepliedDate($repliedDate);
+
+    /**
+     * Get customer id
+     *
+     * @return int|null
+     */
+    public function getCustomerId();
+
+    /**
+     * Set customer id
+     *
+     * @param int|null $customerId
+     * @return void
+     */
+    public function setCustomerId($customerId);
+
+    /**
+     * Get is replied from admin
+     *
+     * @return bool|null
+     */
+    public function getIsRepliedFromAdmin();
+
+    /**
+     * Set is replied from admin
+     *
+     * @param bool|null $isRepliedFromAdmin
+     * @return void
+     */
+    public function setIsRepliedFromAdmin($isRepliedFromAdmin);
 }
