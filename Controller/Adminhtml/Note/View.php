@@ -12,30 +12,34 @@ use Magento\Framework\Controller\ResultInterface;
 use Magento\Backend\Model\View\Result\Page;
 use Magento\Framework\Controller\Result\Redirect;
 use Magento\Framework\Exception\NoSuchEntityException;
-use VitaliyBoyko\ContactUsHistory\Api\Data\NoteInterface;
-use VitaliyBoyko\ContactUsHistory\Api\NotesRepositoryInterface;
+use VitaliyBoyko\ContactUsHistory\Api\Data\NoteDataInterface;
+use VitaliyBoyko\ContactUsHistory\Api\Query\GetNoteByIdInterface;
 
+/**
+ * @inheritdoc
+ */
 class View extends Action
 {
     /**
      * @see _isAllowed()
      */
     const ADMIN_RESOURCE = 'VitaliyBoyko_ContactUsHistory::note';
+
     /**
-     * @var NotesRepositoryInterface
+     * @var GetNoteByIdInterface
      */
-    private $notesRepository;
+    private $getNoteById;
 
     /**
      * @param Action\Context $context
-     * @param NotesRepositoryInterface $notesRepository
+     * @param GetNoteByIdInterface $getNoteById
      */
     public function __construct(
         Action\Context $context,
-        NotesRepositoryInterface $notesRepository
+        GetNoteByIdInterface $getNoteById
     ) {
         parent::__construct($context);
-        $this->notesRepository = $notesRepository;
+        $this->getNoteById = $getNoteById;
     }
 
     /**
@@ -43,9 +47,9 @@ class View extends Action
      */
     public function execute(): ResultInterface
     {
-        $noteId = (int)$this->getRequest()->getParam(NoteInterface::NOTE_ID);
+        $noteId = (int)$this->getRequest()->getParam(NoteDataInterface::NOTE_ID);
         try {
-            $note = $this->notesRepository->get($noteId);
+            $note = $this->getNoteById->execute($noteId);
 
             /** @var Page $result */
             $result = $this->resultFactory->create(ResultFactory::TYPE_PAGE);

@@ -9,12 +9,13 @@ namespace VitaliyBoyko\ContactUsHistory\Controller\Adminhtml\Note;
 use Magento\Backend\App\Action;
 use Magento\Backend\App\Action\Context;
 use Magento\Framework\Controller\ResultInterface;
-use Magento\Inventory\Ui\Component\MassAction\Filter;
-use VitaliyBoyko\ContactUsHistory\Api\NotesDeleteInterface;
-use VitaliyBoyko\ContactUsHistory\Api\NotesRepositoryInterface;
+use Magento\Ui\Component\MassAction\Filter;
+use VitaliyBoyko\ContactUsHistory\Api\Command\DeleteNotesInterface;
+use VitaliyBoyko\ContactUsHistory\Mapper\NotesDataMapper;
+use VitaliyBoyko\ContactUsHistory\Model\ResourceModel\Note\NoteCollectionFactory;
 
 /**
- * MassDelete Controller
+ * @inheritdoc
  */
 class MassDelete extends Action
 {
@@ -27,31 +28,41 @@ class MassDelete extends Action
      * @var Filter
      */
     private $massActionFilter;
+
     /**
-     * @var NotesRepositoryInterface
-     */
-    private $notesRepository;
-    /**
-     * @var NotesDeleteInterface
+     * @var DeleteNotesInterface
      */
     private $notesDelete;
 
     /**
+     * @var NotesDataMapper
+     */
+    private $notesDataMapper;
+
+    /**
+     * @var NoteCollectionFactory
+     */
+    private $noteCollectionFactory;
+
+    /**
      * @param Context $context
-     * @param NotesRepositoryInterface $notesRepository
-     * @param NotesDeleteInterface $notesDelete
+     * @param DeleteNotesInterface $notesDelete
      * @param Filter $massActionFilter
+     * @param NotesDataMapper $notesDataMapper
+     * @param NoteCollectionFactory $noteCollectionFactory
      */
     public function __construct(
         Context $context,
-        NotesRepositoryInterface $notesRepository,
-        NotesDeleteInterface $notesDelete,
-        Filter $massActionFilter
+        DeleteNotesInterface $notesDelete,
+        Filter $massActionFilter,
+        NotesDataMapper $notesDataMapper,
+        NoteCollectionFactory $noteCollectionFactory
     ) {
         parent::__construct($context);
         $this->massActionFilter = $massActionFilter;
-        $this->notesRepository = $notesRepository;
         $this->notesDelete = $notesDelete;
+        $this->notesDataMapper = $notesDataMapper;
+        $this->noteCollectionFactory = $noteCollectionFactory;
     }
 
     /**
@@ -65,11 +76,8 @@ class MassDelete extends Action
             return $this->resultRedirectFactory->create()->setPath('contactus/index/index');
         }
 
-        $notes = [];
-        foreach ($this->massActionFilter->getIds() as $id) {
-            $notes[] = $this->notesRepository->get((int)$id);
-        }
-
+        $collection = $this->massActionFilter->getCollection($this->noteCollectionFactory->create());
+        $notes = $this->notesDataMapper->map($collection);
         $this->notesDelete->execute($notes);
         $this->messageManager->addSuccessMessage(__('You deleted %1 Note(s).', count($notes)));
 

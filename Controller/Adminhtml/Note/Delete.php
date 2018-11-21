@@ -8,38 +8,43 @@ namespace VitaliyBoyko\ContactUsHistory\Controller\Adminhtml\Note;
 
 use Magento\Backend\App\Action;
 use Magento\Framework\Controller\ResultInterface;
-use VitaliyBoyko\ContactUsHistory\Api\Data\NoteInterface;
-use VitaliyBoyko\ContactUsHistory\Api\NotesDeleteInterface;
-use VitaliyBoyko\ContactUsHistory\Api\NotesRepositoryInterface;
+use VitaliyBoyko\ContactUsHistory\Api\Command\DeleteNotesInterface;
+use VitaliyBoyko\ContactUsHistory\Api\Data\NoteDataInterface;
+use VitaliyBoyko\ContactUsHistory\Api\Query\GetNoteByIdInterface;
 
+/**
+ * @inheritdoc
+ */
 class Delete extends Action
 {
     /**
      * @see _isAllowed()
      */
     const ADMIN_RESOURCE = 'VitaliyBoyko_ContactUsHistory::note';
+
     /**
-     * @var NotesRepositoryInterface
+     * @var GetNoteByIdInterface
      */
-    private $notesRepository;
+    private $getNotesList;
+
     /**
-     * @var NotesDeleteInterface
+     * @var DeleteNotesInterface
      */
     private $notesDelete;
 
     /**
      * Delete constructor.
      * @param Action\Context $context
-     * @param NotesRepositoryInterface $notesRepository
-     * @param NotesDeleteInterface $notesDelete
+     * @param GetNoteByIdInterface $getNotesList
+     * @param DeleteNotesInterface $notesDelete
      */
     public function __construct(
         Action\Context $context,
-        NotesRepositoryInterface $notesRepository,
-        NotesDeleteInterface $notesDelete
+        GetNoteByIdInterface $getNotesList,
+        DeleteNotesInterface $notesDelete
     ) {
         parent::__construct($context);
-        $this->notesRepository = $notesRepository;
+        $this->getNotesList = $getNotesList;
         $this->notesDelete = $notesDelete;
     }
 
@@ -50,21 +55,21 @@ class Delete extends Action
     {
         $resultRedirect = $this->resultRedirectFactory->create();
 
-        $noteId = $this->getRequest()->getParam(NoteInterface::NOTE_ID);
+        $noteId = (int)$this->getRequest()->getParam(NoteDataInterface::NOTE_ID);
         if ($noteId === null) {
             $this->messageManager->addErrorMessage(__('Wrong request.'));
             return $resultRedirect->setPath('*/*');
         }
 
         try {
-            $note = $this->notesRepository->get($noteId);
+            $note = $this->getNotesList->execute($noteId);
             $this->notesDelete->execute([$note]);
             $this->messageManager->addSuccessMessage(__('The Note has been deleted.'));
             $resultRedirect->setPath('contactus/index/index');
         } catch (\Exception $e) {
             $this->messageManager->addErrorMessage($e->getMessage());
             $resultRedirect->setPath('contactus/note/view', [
-                NoteInterface::NOTE_ID => $noteId,
+                NoteDataInterface::NOTE_ID => $noteId,
                 '_current' => true,
             ]);
         }

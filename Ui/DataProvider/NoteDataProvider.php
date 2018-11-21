@@ -11,16 +11,17 @@ use Magento\Framework\Api\Search\ReportingInterface;
 use Magento\Framework\Api\Search\SearchCriteriaBuilder;
 use Magento\Framework\App\RequestInterface;
 use Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider;
-use VitaliyBoyko\ContactUsHistory\Api\Data\NoteInterface;
-use VitaliyBoyko\ContactUsHistory\Api\NotesRepositoryInterface;
+use VitaliyBoyko\ContactUsHistory\Api\Data\NoteDataInterface;
+use VitaliyBoyko\ContactUsHistory\Api\Query\GetNotesListInterface;
 use Magento\Ui\DataProvider\SearchResultFactory;
 
 class NoteDataProvider extends DataProvider
 {
     /**
-     * @var NotesRepositoryInterface
+     * @var GetNotesListInterface
      */
-    private $notesRepository;
+    private $getNotesList;
+
     /**
      * @var SearchResultFactory
      */
@@ -35,7 +36,7 @@ class NoteDataProvider extends DataProvider
      * @param SearchCriteriaBuilder $searchCriteriaBuilder
      * @param RequestInterface $request
      * @param FilterBuilder $filterBuilder
-     * @param NotesRepositoryInterface $notesRepository
+     * @param GetNotesListInterface $getNotesList
      * @param SearchResultFactory $searchResultFactory
      * @param array $meta
      * @param array $data
@@ -48,7 +49,7 @@ class NoteDataProvider extends DataProvider
         SearchCriteriaBuilder $searchCriteriaBuilder,
         RequestInterface $request,
         FilterBuilder $filterBuilder,
-        NotesRepositoryInterface $notesRepository,
+        GetNotesListInterface $getNotesList,
         SearchResultFactory $searchResultFactory,
         array $meta = [],
         array $data = []
@@ -65,7 +66,7 @@ class NoteDataProvider extends DataProvider
             $data
         );
         $this->searchResultFactory = $searchResultFactory;
-        $this->notesRepository = $notesRepository;
+        $this->getNotesList = $getNotesList;
     }
 
     /**
@@ -74,13 +75,13 @@ class NoteDataProvider extends DataProvider
     public function getSearchResult()
     {
         $searchCriteria = $this->getSearchCriteria();
-        $result = $this->notesRepository->getList($searchCriteria);
+        $result = $this->getNotesList->execute($searchCriteria);
 
         $searchResult = $this->searchResultFactory->create(
             $result->getItems(),
             $result->getTotalCount(),
             $searchCriteria,
-            NoteInterface::NOTE_ID
+            NoteDataInterface::NOTE_ID
         );
         return $searchResult;
     }

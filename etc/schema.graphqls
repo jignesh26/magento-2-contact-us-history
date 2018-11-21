@@ -1,0 +1,18 @@
+type Query {
+    notes (
+        pageSize: Int = 20 @doc(description: "Specifies the maximum number of results to return at once. This attribute is optional."),
+        currentPage: Int = 1 @doc(description: "Specifies which page of results to return. The default value is 1."),
+    ): Notes @resolver(class: "Magento\\CmsGraphQl\\Model\\Resolver\\Page") @doc(description: "The CMS page query returns information about a CMS page")
+}
+
+type Notes @doc(description: "Notes collection for specific customer") {
+    notes: [Note] @doc(description: "Notes collection")
+}
+
+type Note @doc(description: "The Note") {
+    contact_name: String @doc(description: "Author Name")
+    email: String @doc(description: "Author email")
+    message: String @doc(description: "Message")
+    phone: String @doc(description: "Author phone")
+    created_date: String @doc(description: "Created date")
+}

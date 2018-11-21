@@ -111,26 +111,6 @@
                 <visible>true</visible>
             </settings>
         </column>
-        <column name="status" component="Magento_Ui/js/grid/columns/select" sortOrder="50">
-            <settings>
-                <label translate="true">Is Responded</label>
-                <filter>select</filter>
-                <editor>
-                    <editorType>select</editorType>
-                </editor>
-                <dataType>select</dataType>
-                <options>
-                    <option name="0" xsi:type="array">
-                        <item name="value" xsi:type="number">1</item>
-                        <item name="label" xsi:type="string" translate="true">Responded</item>
-                    </option>
-                    <option name="1" xsi:type="array">
-                        <item name="value" xsi:type="number">0</item>
-                        <item name="label" xsi:type="string" translate="true">Not Responded</item>
-                    </option>
-                </options>
-            </settings>
-        </column>
         <column name="message" sortOrder="50">
             <settings>
                 <filter>text</filter>

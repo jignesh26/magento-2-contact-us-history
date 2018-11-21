@@ -24,9 +24,7 @@
                 <class>back</class>
                 <label translate="true">Back</label>
             </button>
-            <button name="save" class="VitaliyBoyko\ContactUsHistory\Block\Adminhtml\Note\View\SaveButton"/>
             <button name="delete" class="VitaliyBoyko\ContactUsHistory\Block\Adminhtml\Note\View\DeleteButton"/>
-            <button name="reply" class="VitaliyBoyko\ContactUsHistory\Block\Adminhtml\Note\View\ReplyButton"/>
         </buttons>
     </settings>
     <dataSource name="contactus_note_form_data_source" component="Magento_Ui/js/form/provider">
@@ -59,7 +57,7 @@
             <settings>
                 <disabled>true</disabled>
                 <dataType>text</dataType>
-                <label translate="true">Name</label>
+                <label translate="true">Email</label>
             </settings>
         </field>
         <field name="phone" formElement="input" sortOrder="35">
@@ -68,28 +66,6 @@
                 <dataType>text</dataType>
                 <label translate="true">Telephone</label>
             </settings>
-        </field>
-        <field name="status" formElement="select" sortOrder="40">
-            <settings>
-                <dataType>boolean</dataType>
-                <label translate="true">Is responded</label>
-            </settings>
-            <formElements>
-                <select>
-                    <settings>
-                        <options>
-                            <option name="0" xsi:type="array">
-                                <item name="value" xsi:type="number">1</item>
-                                <item name="label" xsi:type="string" translate="true">Responded</item>
-                            </option>
-                            <option name="1" xsi:type="array">
-                                <item name="value" xsi:type="number">0</item>
-                                <item name="label" xsi:type="string" translate="true">Not Responded</item>
-                            </option>
-                        </options>
-                    </settings>
-                </select>
-            </formElements>
         </field>
         <field name="message" formElement="textarea" sortOrder="50">
             <settings>

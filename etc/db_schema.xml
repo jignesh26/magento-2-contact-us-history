@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Vitaliy Boyko <vitaliyboyko@i.ua>
+ */
+-->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="vb_contact_us_history" resource="default" engine="innodb">
+        <column xsi:type="int" name="note_id" padding="10" unsigned="true" nullable="false" identity="true"/>
+        <column xsi:type="varchar" name="contact_name" nullable="false" length="255"/>
+        <column xsi:type="varchar" name="email" nullable="false" length="255"/>
+        <column xsi:type="text" name="message" nullable="false"/>
+        <column xsi:type="varchar" name="phone" nullable="true" length="255"/>
+        <column xsi:type="int" name="customer_id" padding="10" unsigned="true" nullable="true" identity="false"/>
+        <column xsi:type="timestamp" name="created_date" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"/>
+
+        <constraint xsi:type="primary" name="PRIMARY">
+            <column name="note_id"/>
+        </constraint>
+    </table>
+</schema>

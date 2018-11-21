@@ -15,7 +15,7 @@ use Magento\Framework\Controller\Result\Redirect;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\HTTP\PhpEnvironment\Request;
 use Psr\Log\LoggerInterface;
-use VitaliyBoyko\ContactUsHistory\Api\NoteProcessorInterface;
+use VitaliyBoyko\ContactUsHistory\Service\ProcessNoteService;
 
 /**
  * Class Post is custom implementation of Magento\Contact\Controller\Post
@@ -41,8 +41,9 @@ class Post extends Index
      * @var LoggerInterface
      */
     private $logger;
+
     /**
-     * @var NoteProcessorInterface
+     * @var ProcessNoteService
      */
     private $noteProcessor;
 
@@ -52,7 +53,7 @@ class Post extends Index
      * @param MailInterface $mail
      * @param DataPersistorInterface $dataPersistor
      * @param LoggerInterface $logger
-     * @param NoteProcessorInterface $noteProcessor
+     * @param ProcessNoteService $noteProcessor
      */
     public function __construct(
         Context $context,
@@ -60,7 +61,7 @@ class Post extends Index
         MailInterface $mail,
         DataPersistorInterface $dataPersistor,
         LoggerInterface $logger,
-        NoteProcessorInterface $noteProcessor
+        ProcessNoteService $noteProcessor
     ) {
         parent::__construct($context, $contactsConfig);
         $this->context = $context;
@@ -81,9 +82,9 @@ class Post extends Index
             return $this->resultRedirectFactory->create()->setPath('*/*/');
         }
         try {
-            $params = $this->validatedParams();
+            $params = $this->_request->getParams();
             $this->sendEmail($params);
-            $this->noteProcessor->execute($params);
+            $this->noteProcessor->execute();
             $this->messageManager->addSuccessMessage(
                 __('Thanks for contacting us with your comments and questions. We\'ll respond to you very soon.')
             );
@@ -118,28 +119,5 @@ class Post extends Index
         /** @var Request $request */
         $request = $this->getRequest();
         return !empty($request->getPostValue());
-    }
-
-    /**
-     * @return array
-     * @throws \Exception
-     */
-    private function validatedParams()
-    {
-        $request = $this->getRequest();
-        if (trim($request->getParam('name')) === '') {
-            throw new LocalizedException(__('Name is missing'));
-        }
-        if (trim($request->getParam('comment')) === '') {
-            throw new LocalizedException(__('Comment is missing'));
-        }
-        if (false === \strpos($request->getParam('email'), '@')) {
-            throw new LocalizedException(__('Invalid email address'));
-        }
-        if (trim($request->getParam('hideit')) !== '') {
-            throw new \Exception();
-        }
-
-        return $request->getParams();
     }
 }

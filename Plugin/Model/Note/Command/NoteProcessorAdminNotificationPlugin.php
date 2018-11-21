@@ -7,8 +7,8 @@ declare(strict_types=1);
 namespace VitaliyBoyko\ContactUsHistory\Plugin\Model\Note\Command;
 
 use Magento\Framework\App\RequestInterface;
-use VitaliyBoyko\ContactUsHistory\Api\NoteProcessorInterface;
 use Magento\Framework\Notification\NotifierInterface as NotifierPool;
+use VitaliyBoyko\ContactUsHistory\Service\ProcessNoteService;
 
 /**
  * Class provides admin notification after new note placed
@@ -37,10 +37,10 @@ class NoteProcessorAdminNotificationPlugin
     }
 
     /**
-     * @param NoteProcessorInterface $subject
+     * @param ProcessNoteService $subject
      * @return void
      */
-    public function afterExecute(NoteProcessorInterface $subject)
+    public function afterExecute(ProcessNoteService $subject)
     {
         $customerName = $this->request->getParam('name');
 
