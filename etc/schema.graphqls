@@ -2,7 +2,7 @@ type Query {
     notes (
         pageSize: Int = 20 @doc(description: "Specifies the maximum number of results to return at once. This attribute is optional."),
         currentPage: Int = 1 @doc(description: "Specifies which page of results to return. The default value is 1."),
-    ): Notes @resolver(class: "Magento\\CmsGraphQl\\Model\\Resolver\\Page") @doc(description: "The CMS page query returns information about a CMS page")
+    ): Notes @resolver(class: "VitaliyBoyko\\ContactUsHistory\\GraphQl\\Resolver\\CustomerNotesResolver") @doc(description: "The CMS page query returns information about a CMS page")
 }
 
 type Notes @doc(description: "Notes collection for specific customer") {
